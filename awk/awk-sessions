@@ -1,0 +1,16 @@
+#!/bin/sh
+journalctl --since=yesterday | awk '
+BEGIN {
+    logins["root"]=0
+}
+{
+    if ($0 ~ /.*Session opened for.*/) {
+        match($0, /.*Session opened for ([A-z]+) by.*/, arr)
+        logins[arr[1]]++
+    }
+}
+END {
+    print "Пользовательские сессии за последний день:"
+    for (login in logins)
+        print login ":" logins[login]
+}'

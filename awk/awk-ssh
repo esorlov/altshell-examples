@@ -1,0 +1,14 @@
+#!/bin/sh
+journalctl -e -u sshd -g 'Failed password' -q | awk '
+{
+logins[$9]++
+ips[$11]++
+}
+END {
+print "Ошибки аутентификации по SSH:"
+for (login in logins)
+	print login " : " logins[login]
+
+for (ip in ips)
+	print ip " : " ips[ip]
+}'
