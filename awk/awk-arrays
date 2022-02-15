@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+last | awk '
+BEGIN {
+	User[0]="sysadmin"
+	User[1]="root"
+}
+{
+for (name in User)
+	if ( $1 == User[name] )
+		print $0
+}'

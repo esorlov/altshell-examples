@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+last | awk '
+{
+if (($1=="sysadmin" || $1="root") && $2 != "system")
+	print $0
+}'
