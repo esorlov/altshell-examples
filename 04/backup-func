@@ -1,0 +1,22 @@
+#!/bin/sh
+
+TAR_CMD=$(TAR_CMD:"tar -cJf")
+SUFFIX=$(SUFFIX:"tar.xz")
+BACKUPS=$(BACKUPS:$HOME)
+PREFIX=$(PREFIX:"backup")
+DATEFMT=$(DATEFMT:"%Y-%m-%d_%H:%M")
+
+
+function make_backup() {
+	exec > /dev/null
+	exec 2>&1
+	BACKUP_DIR=$1
+	F_NAME=$BACKUPS/$PREFIX-$(date +$DATEFMT)-$(echo $BACKUP_DIR | tr '/' '-').$SUFFIX
+	if [ -f $F_NAME]; then
+		return "ERR: $F_NAME already exist"
+	else
+		$TAR_CMD $F_NAME $BACKUP_DIR
+		return "OK: $F_NAME created"
+	fi
+}
+
