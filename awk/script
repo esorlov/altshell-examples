@@ -1,0 +1,7 @@
+BEGIN {print "Пользователи:"}
+{
+print $1 "\t HOME: " $6
+}
+END {
+print "Конец."
+}
