@@ -1,0 +1,6 @@
+#!/bin/sh
+file=book.txt
+name="Линус"
+#line=$(cat $file | sed -n '/'$name'/p')
+line=$(cat $file | awk -F: '/'$name'/{print $0}')
+echo $line

@@ -1,0 +1,4 @@
+#!/bin/sh
+Phone=" 9(999)999-99-99"
+line=$(awk -F ":" -v Phone_awk="$Phone" '{if (Phone_awk==$2) print $0}' book.txt)
+echo $line

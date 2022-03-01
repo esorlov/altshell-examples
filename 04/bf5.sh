@@ -2,7 +2,7 @@
 
 TAR_CMD="tar -cJf"
 BACKUPS=$HOME
-PREFIX="backup"
+PREFIX="b"
 DATEFMT="%Y-%m-%d_%H:%M"
 
 
@@ -19,8 +19,7 @@ function main() {
 	while (( "$#" )); do
 		B_DIR=$1
 		if [ -d $B_DIR ]; then 
-			ret=$(make_backup $B_DIR)
-			echo $ret
+			make_backup $B_DIR || echo $retstr
 		else
 			echo "ERR: Directory $B_DIR doesn\'t exists"
 		fi

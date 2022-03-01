@@ -10,7 +10,7 @@ function make_backup() {
 	TAR_CMD="tar -cJf"
 	BACKUP_DIR=$1
 	BACKUP_FILE_TMPL=backup-$(date +%Y-%m-%d_%H:%M)
-	F_NAME=$BACKUP_FILE_TMPL-$(echo $BACKUP_DIR | tr '/' '-').tar.xz
+	F_NAME=$BACKUP_FILE_TMPL-$(basename $BACKUP_DIR).tar.xz
 	$TAR_CMD $HOME/$F_NAME $BACKUP_DIR
 }
 
