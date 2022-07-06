@@ -1,0 +1,8 @@
+- hosts: altsrv3
+  tasks:
+  - name: Установка интерфейса для службы DHCP
+    replace:
+      path: /etc/sysconfig/dhcpd
+      regexp: '(^DHCPDARGS=)(.*)$'
+      replace: '\1enp0s8'
+      backup: yes

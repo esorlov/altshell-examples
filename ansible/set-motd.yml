@@ -1,0 +1,7 @@
+- name: Установка /etc/motd на всех узлах группы servers
+  hosts: servers
+  tasks:
+    - name: Установка motd на основе хостовых переменных.
+      copy: 
+        content: "{{ msg }}"
+        dest: /etc/motd

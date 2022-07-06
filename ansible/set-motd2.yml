@@ -1,0 +1,9 @@
+- name: Установка /etc/motd на всех узлах группы servers
+  hosts: servers
+  vars:
+    org_name: Basalt
+  tasks:
+    - name: Установка motd на основе шаблона и переменной из фактов.
+      template: 
+        src: files/motd.tmpl
+        dest: /etc/motd

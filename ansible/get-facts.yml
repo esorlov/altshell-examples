@@ -1,0 +1,14 @@
+- name: Отображение информации о системе
+  hosts: servers
+  tasks:
+    - name: Адреса ipv4
+      debug:
+        msg: "IPv4-адреса: {{ ansible_facts.all_ipv4_addresses }}"
+
+    - name: FQDN узла
+      debug:
+        msg: "FQDN: {{ ansible_facts.fqdn }}" 
+
+    - name: Информация о дистрибутиве
+      debug:
+        msg: "Дистрибутив: {{ ansible_facts.distribution }}"

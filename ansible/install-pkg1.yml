@@ -1,0 +1,9 @@
+- hosts: servers
+  vars:
+    packages: joe
+  tasks:
+  - name: Обновить кэш и выполнить установку пакета
+    apt_rpm:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes

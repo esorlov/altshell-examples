@@ -1,0 +1,11 @@
+- name: Интерактивный ввод значения переменной
+  hosts: altsrv1
+  vars_prompt:
+     - name: username
+       prompt: "Введите имя пользователя"
+       private: no
+
+  tasks:
+    - name: Приветствие пользователя
+      debug:
+        msg: "Привет, {{ username }}!"

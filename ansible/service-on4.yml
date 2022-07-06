@@ -1,0 +1,11 @@
+- name: Работа с элементами списка из файла переменных плейбука
+  hosts: servers
+  vars_files: _var-services.yml
+  tasks:
+  - name: Включить и перезапустить службы {{ services }} , разблокировать если требуется
+    systemd:
+      name: "{{ item }}"
+      enabled: yes
+      state: restarted
+      masked: no
+    loop: "{{ services }}"

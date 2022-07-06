@@ -1,0 +1,8 @@
+- hosts: servers
+  tasks:
+  - name: Включить и перезапустить службу {{ service }} , разблокировать если требуется
+    systemd:
+      name: "{{ service }}"
+      enabled: yes
+      state: restarted
+      masked: no

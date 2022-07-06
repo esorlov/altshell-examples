@@ -1,0 +1,6 @@
+- hosts: altsrv1
+  tasks:
+  - name: Удаление всех репозиториев
+    shell: apt-repo rm all
+  - name: Добавление репозитория p10
+    shell: apt-repo add p10

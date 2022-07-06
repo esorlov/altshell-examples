@@ -1,0 +1,5 @@
+workgroup_name: MYWORKGROUP
+share_name: smbshare
+share_path: /srv/sambashare
+username: sambauser
+userpass: netlab123

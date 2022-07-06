@@ -1,0 +1,21 @@
+services:
+  - crond
+  - sshd
+  - nginx
+  - squid
+services_state:
+  crond:
+    name: crond
+    package: vixie-cron
+    enabled: yes
+    state: started
+  sshd:
+    name: sshd
+    package: openssh-server
+    enabled: yes
+    state: started
+  cups:
+    name: cups
+    package: cups
+    enabled: no
+    state: stopped

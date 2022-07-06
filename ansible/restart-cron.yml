@@ -1,0 +1,8 @@
+- hosts: servers
+  tasks:
+  - name: Включить и перезапустить службу crond, разблокировать если требуется
+    systemd:
+      name: crond
+      enabled: yes
+      state: restarted
+      masked: no

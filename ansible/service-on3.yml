@@ -1,0 +1,10 @@
+- name: Работа с элементами словаря из файла переменных плейбука
+  hosts: servers
+  vars_files: _var-services.yml
+  tasks:
+  - name: "Установить состояние службы {{ services_state.crond.name }}, разблокировать если требуется"
+    systemd:
+      name: "{{ services_state.crond.name }}"
+      enabled: "{{ services_state.crond.enabled }}"
+      state: "{{ services_state.crond.state }}"
+      masked: no

@@ -1,0 +1,5 @@
+packages: [samba, samba-common, samba-client]
+rm_dirs: [/etc/samba, /var/lib/samba]
+conf_tmpl: smb.conf.tmpl
+conf_file: /etc/samba/smb.conf
+service_name: smb

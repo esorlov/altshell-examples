@@ -1,0 +1,18 @@
+- hosts: altsrv1
+  tasks:
+  - name: Install mc
+    apt_rpm:
+      name: mc
+      state: present
+      update_cache: no
+  - name: Remove nologin file
+    file:
+      name: /etc/nologin
+      state: absent
+- hosts: servers
+  tasks:
+  - name: Install joe
+    apt_rpm:
+      name: joe
+      state: present
+      update_cache: no

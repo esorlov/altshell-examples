@@ -1,0 +1,10 @@
+[global]
+        workgroup = {{ workgroup_name  }}
+        server string = Samba Server Version %v
+        netbios name = {{ ansible_facts.hostname | upper }}
+	security = user
+	passdb backend = tdbsam
+
+[{{ share_name }}]
+	path = {{ share_path }}
+	read only = no

@@ -1,0 +1,9 @@
+- name: Используем роль для настройки SMB/CIFS
+  hosts: altsrv3
+  roles:
+    - role: smb-server
+      workgroup_name: MYWORKGROUP3
+      share_name: smbshare3
+      share_path: /srv/sambashare3
+      username: sambauser3
+      userpass: netlab123

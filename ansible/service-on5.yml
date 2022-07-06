@@ -1,0 +1,17 @@
+- name: Установка и включение необходимых служб на основании описания словаря
+  hosts: servers
+  vars_files: _var-services.yml
+  tasks:
+  - name: "Установить при необходимости пакеты служб"
+    apt_rpm:
+      name: "{{ item.value.package }}"
+      state: present
+      update_cache: yes
+    loop: "{{ services_state | dict2items }}"
+  - name: "Установить состояние служб, разблокировать если требуется"
+    systemd:
+      name: "{{ item.value.name }}"
+      enabled: "{{ item.value.enabled }}"
+      state: "{{ item.value.state }}"
+      masked: no
+    loop: "{{ services_state | dict2items }}"

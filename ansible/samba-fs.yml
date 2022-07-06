@@ -1,0 +1,53 @@
+- name: Развертывание файлового сервера SMB/CIFS 
+  hosts: altsrv2
+  vars:
+    packages: [samba, samba-common, samba-client]
+    rm_dirs: [/etc/samba, /var/lib/samba]
+    workgroup_name: MYWORKGROUP
+    share_name: smbshare
+    share_path: /srv/sambashare
+    conf_tmpl: files/smb.conf.tmpl
+    conf_file: /etc/samba/smb.conf
+    username: sambauser
+    userpass: netlab123
+    service_name: smb
+  tasks:
+  - name: Удаление ранее установленных пакетов {{ packages }}
+    apt_rpm:
+      package: "{{ item }}"
+      state: absent
+    loop: "{{ packages }}"
+  - name: Очистка старой конфигурации
+    file:
+      path: "{{ item }}"
+      state: absent
+    loop: "{{ rm_dirs }}"
+  - name: Установка пакетов {{ packages }}
+    apt_rpm:
+      package: "{{ item }}"
+      state: present
+      update_cache: yes
+    loop: "{{ packages }}"
+  - name: Создание системного пользователя {{ username }}
+    user: 
+      name: "{{ username }}"
+      password: "{{ userpass | password_hash('sha512') }}"
+  - name: Создание каталога разделяемого ресурса
+    file: 
+      path: "{{ share_path }}"
+      state: directory
+      owner: "{{ username }}"
+      mode: 0755
+  - name: Файл конфигурации из шаблона
+    template:
+      src: "{{ conf_tmpl }}"
+      dest: "{{ conf_file }}"
+      validate: testparm -s %s
+  - name: Создание samba-пользователя {{ username }}
+    shell: "printf '{{ userpass}}\n{{ userpass }}\n' | smbpasswd -a {{ username }}"
+  - name: Включение, размаскировка и перезапуск службы {{ service_name }}
+    systemd:
+      name: "{{ service_name }}"
+      enabled: yes
+      state: restarted
+      masked: no

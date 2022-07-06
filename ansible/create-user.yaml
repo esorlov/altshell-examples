@@ -1,0 +1,11 @@
+- hosts: servers
+  vars:
+    username: user1
+    userpass: netlab123
+  tasks:
+  - name: Создание пользователя
+    user: 
+      name: "{{ username }}"
+      password: "{{ userpass | password_hash('sha512') }}"
+      groups: wheel 
+      append: yes

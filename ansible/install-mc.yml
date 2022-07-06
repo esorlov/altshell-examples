@@ -1,0 +1,7 @@
+- hosts: servers
+  tasks:
+  - name: Обновить кэш и выполнить установку mc
+    apt_rpm:
+      name: mc
+      state: present
+      update_cache: yes

@@ -1,0 +1,12 @@
+- name: Тестирование переменных
+  hosts: servers
+  vars:
+    http_port: 80
+    http_root: /var/www/html
+  tasks:
+    - name: Отображение значения HTTP-порта
+      debug:
+        msg: HTTP port is {{ http_port }}. 
+    - name: Отображение значения корня
+      debug:
+        msg: "{{ http_root  }} is web server root."

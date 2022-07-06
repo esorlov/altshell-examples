@@ -1,0 +1,16 @@
+- hosts: altsrv3
+  tasks:
+  - name: Установить пакет DHCP-сервера
+    apt_rpm:
+      name: dhcp-server
+      state: present
+      update_cache: yes
+  - name: Копировать конфигурационный файл DHCPD
+    copy:
+      src: files/etc-dhcp-dhcpd.conf
+      dest: /etc/dhcp/dhcpd.conf
+      owner: root
+      group: root
+      mode: 0600
+      backup: yes
+      validate: /usr/sbin/dhcpd -t -cf %s
